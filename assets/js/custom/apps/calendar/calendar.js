@@ -73,7 +73,7 @@ var KTAppCalendar = function() {
 
 
                             // Function to create a calendar event object
-                            function createCalendarEvent(course, info, week, dayOfWeek, lich) {
+                            function createCalendarEvent(course, info, week, dayOfWeek, lich, gv) {
                                 const date = getDateFromWeek(week, dayOfWeek);
                                 const startTime = getTimeFromTietHoc(info.tietHoc[0]);
                                 const endTime = getTimeFromTietHoc(info.tietHoc[info.tietHoc.length - 1]);
@@ -87,17 +87,67 @@ var KTAppCalendar = function() {
                                 endDateTime.setHours(endDateTime.getHours() + 7);
 
                                 // Create the event object
-                                const calendarEvent = {
-                                    title: course.tenMonHoc + ' - ' + lich.giangVien,
-                                    start: startDateTime.toISOString().replace(".000Z", ""),
-                                    end: endDateTime.toISOString().replace(".000Z", ""),
-                                    location: mapLocation(info.coSo) + ' - ' + info.phong + ' - ' + lich.group,
-                                    description: lich.giangVien + '\nEmail: ' + lich.email + '\nPhone: ' + lich.phone,
-                                    allDay: false
-                                };
-                                console.log(calendarEvent);
-                                //console.log(info);
-                                return calendarEvent;
+
+                                if (lich.group.includes("_")) {
+                                    if (info.week.length < 10 && gv == lich.giangVienBT && gv != '') {
+                                        const calendarEvent = {
+                                            title: course.tenMonHoc + ' - ' + lich.giangVienBT + ' (Exercise)',
+                                            start: startDateTime.toISOString().replace(".000Z", ""),
+                                            end: endDateTime.toISOString().replace(".000Z", ""),
+                                            location: mapLocation(info.coSo) + ' - ' + info.phong + ' - ' + lich.nhomBT,
+                                            description: lich.giangVien + '\nEmail: ' + lich.email + '\nPhone: ' + lich.phone,
+                                            allDay: false
+                                        };
+                                        console.log(calendarEvent,'Exercise');
+                                        return calendarEvent;
+                                    }if (info.week.length > 10 & gv == lich.giangVien && gv != '') {
+                                        const calendarEvent = {
+                                            title: course.tenMonHoc + ' - ' + lich.giangVien,
+                                            start: startDateTime.toISOString().replace(".000Z", ""),
+                                            end: endDateTime.toISOString().replace(".000Z", ""),
+                                            location: mapLocation(info.coSo) + ' - ' + info.phong + ' - ' + lich.nhomLT,
+                                            description: lich.giangVien + '\nEmail: ' + lich.email + '\nPhone: ' + lich.phone,
+                                            allDay: false
+                                        };
+                                        console.log(calendarEvent);
+                                        return calendarEvent;
+                                    }if(info.week.length < 10 && gv == '') {
+                                        const calendarEvent = {
+                                            title: course.tenMonHoc + ' - ' + lich.giangVienBT + ' (Exercise)',
+                                            start: startDateTime.toISOString().replace(".000Z", ""),
+                                            end: endDateTime.toISOString().replace(".000Z", ""),
+                                            location: mapLocation(info.coSo) + ' - ' + info.phong + ' - ' + lich.nhomBT,
+                                            description: lich.giangVien + '\nEmail: ' + lich.email + '\nPhone: ' + lich.phone,
+                                            allDay: false
+                                        };
+                                        console.log(calendarEvent);
+                                        return calendarEvent;
+                                    }if (info.week.length > 10 && gv == '') {
+                                        const calendarEvent = {
+                                            title: course.tenMonHoc + ' - ' + lich.giangVien,
+                                            start: startDateTime.toISOString().replace(".000Z", ""),
+                                            end: endDateTime.toISOString().replace(".000Z", ""),
+                                            location: mapLocation(info.coSo) + ' - ' + info.phong + ' - ' + lich.nhomLT,
+                                            description: lich.giangVien + '\nEmail: ' + lich.email + '\nPhone: ' + lich.phone,
+                                            allDay: false
+                                        };
+                                        console.log(calendarEvent);
+                                        return calendarEvent;
+                                    }
+                                }else{
+                                    const calendarEvent = {
+                                        title: course.tenMonHoc + ' - ' + lich.giangVien,
+                                        start: startDateTime.toISOString().replace(".000Z", ""),
+                                        end: endDateTime.toISOString().replace(".000Z", ""),
+                                        location: mapLocation(info.coSo) + ' - ' + info.phong + ' - ' + lich.group,
+                                        description: lich.giangVien + '\nEmail: ' + lich.email + '\nPhone: ' + lich.phone,
+                                        allDay: false
+                                    };
+                                    console.log(calendarEvent);
+                                    return calendarEvent;
+                                }
+
+
                             }
                             var apiUrl = 'https://test-flask-3.vercel.app/api?id=' + t.value + '&gv=' + n.value;
 
@@ -130,9 +180,11 @@ var KTAppCalendar = function() {
                                                 for (let l = 0; l < info.week.length; l++) {
                                                     const week = info.week[l];
                                                     // Create the event object
-                                                    var calendarEvent = createCalendarEvent(course, info, week, info.dayOfWeek, lich);
+                                                    var calendarEvent = createCalendarEvent(course, info, week, info.dayOfWeek, lich, n.value);
                                                     // Add the event to the calendar
-                                                    e.addEvent(calendarEvent);
+                                                    if (calendarEvent != null){
+                                                        e.addEvent(calendarEvent);
+                                                    }
                                                 }
                                             }
                                         }
