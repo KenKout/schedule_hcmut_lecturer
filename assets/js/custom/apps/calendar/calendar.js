@@ -107,6 +107,7 @@ var KTAppCalendar = function() {
                                 dataType: 'json',
                                 success: function (data) {
                                     // Process the response and add events to the calendar
+                                    /*
                                     data.forEach(function (course) {
                                         course.lichHoc.forEach(function (lich) {
                                             lich.classInfo.forEach(function (info) {
@@ -119,6 +120,24 @@ var KTAppCalendar = function() {
                                             });
                                         });
                                     });
+                                    */
+                                    for (let i = 0; i < data.length; i++) {
+                                        const course = data[i];
+                                        for (let j = 0; j < course.lichHoc.length; j++) {
+                                            const lich = course.lichHoc[j];
+                                            for (let k = 0; k < lich.classInfo.length; k++) {
+                                                const info = lich.classInfo[k];
+                                                for (let l = 0; l < info.week.length; l++) {
+                                                    const week = info.week[l];
+                                                    // Create the event object
+                                                    var calendarEvent = createCalendarEvent(course, info, week, info.dayOfWeek, lich);
+                                                    // Add the event to the calendar
+                                                    e.addEvent(calendarEvent);
+                                                }
+                                            }
+                                        }
+                                    }
+
                                     e.render(), f.reset();
                                     u.hide(), D.disabled = !1;
                                     D.removeAttribute("data-kt-indicator");
