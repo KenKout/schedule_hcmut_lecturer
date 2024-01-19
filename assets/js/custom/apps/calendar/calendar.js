@@ -95,7 +95,7 @@ var KTAppCalendar = function() {
                                             start: startDateTime.toISOString().replace(".000Z", ""),
                                             end: endDateTime.toISOString().replace(".000Z", ""),
                                             location: mapLocation(info.coSo) + ' - ' + info.phong + ' - ' + lich.nhomBT,
-                                            description: lich.giangVien + '\nEmail: ' + lich.email + '\nPhone: ' + lich.phone,
+                                            description: lich.giangVienBT + '\nEmail: ' + lich.emailBT + '\nPhone: ' + lich.phoneBT,
                                             allDay: false
                                         };
                                         console.log(calendarEvent,'Exercise');
@@ -117,7 +117,7 @@ var KTAppCalendar = function() {
                                             start: startDateTime.toISOString().replace(".000Z", ""),
                                             end: endDateTime.toISOString().replace(".000Z", ""),
                                             location: mapLocation(info.coSo) + ' - ' + info.phong + ' - ' + lich.nhomBT,
-                                            description: lich.giangVien + '\nEmail: ' + lich.email + '\nPhone: ' + lich.phone,
+                                            description: lich.giangVienBT + '\nEmail: ' + lich.emailBT + '\nPhone: ' + lich.phoneBT,
                                             allDay: false
                                         };
                                         console.log(calendarEvent);
