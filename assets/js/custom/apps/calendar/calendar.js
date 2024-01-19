@@ -149,7 +149,7 @@ var KTAppCalendar = function() {
 
 
                             }
-                            var apiUrl = 'https://test-flask-3.vercel.app/api?id=' + t.value + '&gv=' + n.value;
+                            var apiUrl = 'https://hcmut.vercel.app/api?id=' + t.value + '&gv=' + n.value;
 
                             $.ajax({
                                 url: apiUrl,
