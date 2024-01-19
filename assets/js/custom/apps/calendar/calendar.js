@@ -90,7 +90,7 @@ var KTAppCalendar = function() {
                                         title: course.tenMonHoc + ' - ' + lich.giangVien,
                                         start: startDateTime.toISOString().replace(".000Z", ""),
                                         end: endDateTime.toISOString().replace(".000Z", ""),
-                                        location: mapLocation(info.coSo) + ' - ' + info.phong,
+                                        location: mapLocation(info.coSo) + ' - ' + info.phong + ' - ' + lich.group,
                                         description: lich.giangVien,
                                         allDay: false
                                     };
