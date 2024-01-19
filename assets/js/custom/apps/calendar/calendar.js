@@ -22,7 +22,7 @@ var KTAppCalendar = function() {
             })), C(E), D.addEventListener("click", (function(o) {
                 o.preventDefault(), p && p.validate().then((function(o) {
                     console.log("validated!"), "Valid" == o ? (D.setAttribute("data-kt-indicator", "on"), D.disabled = !0, setTimeout((function() {
-                        D.removeAttribute("data-kt-indicator"), Swal.fire({
+                        Swal.fire({
                             text: "New event added to calendar! Please wait seconds to load data.",
                             icon: "success",
                             buttonsStyling: !1,
@@ -32,7 +32,7 @@ var KTAppCalendar = function() {
                             }
                         }).then((function(o) {
                             if (o.isConfirmed) {
-                                u.hide(), D.disabled = !1;
+                                //u.hide(), D.disabled = !1;
                                 function mapLocation(locationCode) {
                                     // Implement this function based on your location mapping
                                     return locationCode.trim() === "1" ? "Ly Thuong Kiet" : "Di An";
@@ -118,6 +118,8 @@ var KTAppCalendar = function() {
                                                 });
                                             });
                                         });
+                                        u.hide(), D.disabled = !1;
+                                        D.removeAttribute("data-kt-indicator");
                                     },
                                     error: function (jqXHR, textStatus, errorThrown) {
                                         console.error('Error fetching data: ' + textStatus, errorThrown);
@@ -253,13 +255,13 @@ var KTAppCalendar = function() {
                 datesSet: function() {}
             })).render(), p = FormValidation.formValidation(f, {
                 fields: {
-                    calendar_event_name: {
-                        validators: {
-                            notEmpty: {
-                                message: "Event name is required"
-                            }
-                        }
-                    },
+                    //calendar_event_name: {
+                    //    validators: {
+                    //        notEmpty: {
+                    //            message: "Event name is required"
+                    //        }
+                    //    }
+                    //},
                     calendar_event_start_date: {
                         validators: {
                             notEmpty: {
