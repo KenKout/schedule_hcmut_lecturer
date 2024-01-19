@@ -27,108 +27,108 @@ var KTAppCalendar = function() {
                             icon: "success",
                             buttonsStyling: !1,
                             confirmButtonText: "Ok, got it!",
+                            showConfirmButton: false,
+                            timer: 1000,
                             customClass: {
                                 confirmButton: "btn btn-primary"
                             }
                         }).then((function(o) {
-                            if (o.isConfirmed) {
-                                //u.hide(), D.disabled = !1;
-                                function mapLocation(locationCode) {
-                                    // Implement this function based on your location mapping
-                                    return locationCode.trim() === "1" ? "Ly Thuong Kiet" : "Di An";
-                                }
+                            //u.hide(), D.disabled = !1;
+                            function mapLocation(locationCode) {
+                                // Implement this function based on your location mapping
+                                return locationCode.trim() === "1" ? "Ly Thuong Kiet" : "Di An";
+                            }
 
-                                // Helper function to calculate the date from the week number and day of the week
-                                function getDateFromWeek(weekNumber, dayOfWeek) {
-                                    const startDate = new Date('2024-01-07'); // Week 1 start date (Sunday)
-                                    const date = new Date(startDate);
-                                    date.setDate(startDate.getDate() + (weekNumber - 1) * 7 + dayOfWeek);
-                                    return date;
-                                }
+                            // Helper function to calculate the date from the week number and day of the week
+                            function getDateFromWeek(weekNumber, dayOfWeek) {
+                                const startDate = new Date('2024-01-07'); // Week 1 start date (Sunday)
+                                const date = new Date(startDate);
+                                date.setDate(startDate.getDate() + (weekNumber - 1) * 7 + dayOfWeek);
+                                return date;
+                            }
 
-                                // Helper function to map tietHoc to time slots
-                                function getTimeFromTietHoc(tietHoc) {
-                                    const timeSlots = {
-                                        1: { start: '06:00', end: '06:50' },
-                                        2: { start: '07:00', end: '07:50' },
-                                        3: { start: '08:00', end: '08:50' },
-                                        4: { start: '09:00', end: '09:50' },
-                                        5: { start: '10:00', end: '10:50' },
-                                        6: { start: '11:00', end: '11:50' },
-                                        7: { start: '12:00', end: '12:50' },
-                                        8: { start: '13:00', end: '13:50' },
-                                        9: { start: '14:00', end: '14:50' },
-                                        10: { start: '15:00', end: '15:50' },
-                                        11: { start: '16:00', end: '16:50' },
-                                        12: { start: '17:00', end: '17:50' },
-                                        13: { start: '18:00', end: '18:50' },
-                                        14: { start: '18:50', end: '19:40' },
-                                        15: { start: '19:40', end: '20:30' },
-                                        16: { start: '20:30', end: '21:20' },
-                                        17: { start: '21:20', end: '22:10' }
-                                    };
-                                    return timeSlots[tietHoc];
-                                }
+                            // Helper function to map tietHoc to time slots
+                            function getTimeFromTietHoc(tietHoc) {
+                                const timeSlots = {
+                                    1: { start: '06:00', end: '06:50' },
+                                    2: { start: '07:00', end: '07:50' },
+                                    3: { start: '08:00', end: '08:50' },
+                                    4: { start: '09:00', end: '09:50' },
+                                    5: { start: '10:00', end: '10:50' },
+                                    6: { start: '11:00', end: '11:50' },
+                                    7: { start: '12:00', end: '12:50' },
+                                    8: { start: '13:00', end: '13:50' },
+                                    9: { start: '14:00', end: '14:50' },
+                                    10: { start: '15:00', end: '15:50' },
+                                    11: { start: '16:00', end: '16:50' },
+                                    12: { start: '17:00', end: '17:50' },
+                                    13: { start: '18:00', end: '18:50' },
+                                    14: { start: '18:50', end: '19:40' },
+                                    15: { start: '19:40', end: '20:30' },
+                                    16: { start: '20:30', end: '21:20' },
+                                    17: { start: '21:20', end: '22:10' }
+                                };
+                                return timeSlots[tietHoc];
+                            }
 
 
-                                // Function to create a calendar event object
-                                function createCalendarEvent(course, info, week, dayOfWeek, lich) {
-                                    const date = getDateFromWeek(week, dayOfWeek);
-                                    const startTime = getTimeFromTietHoc(info.tietHoc[0]);
-                                    const endTime = getTimeFromTietHoc(info.tietHoc[info.tietHoc.length - 1]);
+                            // Function to create a calendar event object
+                            function createCalendarEvent(course, info, week, dayOfWeek, lich) {
+                                const date = getDateFromWeek(week, dayOfWeek);
+                                const startTime = getTimeFromTietHoc(info.tietHoc[0]);
+                                const endTime = getTimeFromTietHoc(info.tietHoc[info.tietHoc.length - 1]);
 
-                                    // Adjust the date to include the time
-                                    const startDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), ...startTime.start.split(':'));
-                                    const endDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), ...endTime.end.split(':'));
+                                // Adjust the date to include the time
+                                const startDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), ...startTime.start.split(':'));
+                                const endDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), ...endTime.end.split(':'));
 
-                                    // Convert to UTC+7 by adding 7 hours
-                                    startDateTime.setHours(startDateTime.getHours() + 7);
-                                    endDateTime.setHours(endDateTime.getHours() + 7);
+                                // Convert to UTC+7 by adding 7 hours
+                                startDateTime.setHours(startDateTime.getHours() + 7);
+                                endDateTime.setHours(endDateTime.getHours() + 7);
 
-                                    // Create the event object
-                                    const calendarEvent = {
-                                        title: course.tenMonHoc + ' - ' + lich.giangVien,
-                                        start: startDateTime.toISOString().replace(".000Z", ""),
-                                        end: endDateTime.toISOString().replace(".000Z", ""),
-                                        location: mapLocation(info.coSo) + ' - ' + info.phong + ' - ' + lich.group,
-                                        description: lich.giangVien,
-                                        allDay: false
-                                    };
-                                    console.log(calendarEvent);
-                                    //console.log(info);
-                                    return calendarEvent;
-                                }
-                                var apiUrl = 'https://test-flask-3.vercel.app/api?id=' + t.value + '&gv=' + n.value;
+                                // Create the event object
+                                const calendarEvent = {
+                                    title: course.tenMonHoc + ' - ' + lich.giangVien,
+                                    start: startDateTime.toISOString().replace(".000Z", ""),
+                                    end: endDateTime.toISOString().replace(".000Z", ""),
+                                    location: mapLocation(info.coSo) + ' - ' + info.phong + ' - ' + lich.group,
+                                    description: lich.giangVien,
+                                    allDay: false
+                                };
+                                console.log(calendarEvent);
+                                //console.log(info);
+                                return calendarEvent;
+                            }
+                            var apiUrl = 'https://test-flask-3.vercel.app/api?id=' + t.value + '&gv=' + n.value;
 
-                                $.ajax({
-                                    url: apiUrl,
-                                    type: 'GET',
-                                    dataType: 'json',
-                                    success: function (data) {
-                                        // Process the response and add events to the calendar
-                                        data.forEach(function (course) {
-                                            course.lichHoc.forEach(function (lich) {
-                                                lich.classInfo.forEach(function (info) {
-                                                    info.week.forEach(function (week) {
-                                                        // Create the event object
-                                                        var calendarEvent = createCalendarEvent(course, info, week, info.dayOfWeek, lich);
-                                                        // Add the event to the calendar
-                                                        e.addEvent(calendarEvent) // Make sure this matches the method of your calendar library
-                                                    });
+                            $.ajax({
+                                url: apiUrl,
+                                type: 'GET',
+                                dataType: 'json',
+                                success: function (data) {
+                                    // Process the response and add events to the calendar
+                                    data.forEach(function (course) {
+                                        course.lichHoc.forEach(function (lich) {
+                                            lich.classInfo.forEach(function (info) {
+                                                info.week.forEach(function (week) {
+                                                    // Create the event object
+                                                    var calendarEvent = createCalendarEvent(course, info, week, info.dayOfWeek, lich);
+                                                    // Add the event to the calendar
+                                                    e.addEvent(calendarEvent) // Make sure this matches the method of your calendar library
                                                 });
                                             });
                                         });
-                                        e.render(), f.reset();
-                                        u.hide(), D.disabled = !1;
-                                        D.removeAttribute("data-kt-indicator");
-                                    },
-                                    error: function (jqXHR, textStatus, errorThrown) {
-                                        console.error('Error fetching data: ' + textStatus, errorThrown);
-                                    }
-                                });
-                            }
+                                    });
+                                    e.render(), f.reset();
+                                    u.hide(), D.disabled = !1;
+                                    D.removeAttribute("data-kt-indicator");
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    console.error('Error fetching data: ' + textStatus, errorThrown);
+                                }
+                            });
                         }))
-                    }), 2e3)) : Swal.fire({
+                    }), 0)) : Swal.fire({
                         text: "Sorry, looks like there are some errors detected, please try again.",
                         icon: "error",
                         buttonsStyling: !1,
