@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 	<!--begin::Head-->
@@ -526,7 +525,7 @@
 					success: function(data) {
 						// Process the received data to match the format expected by Select2
 						var select2Data = $.map(data, function (item) {
-							return { id: item, text: item }; // Use the string as both the id and text
+							return { id: item.id, text: item.id + ' - ' + item.name};
 						});
 
 						// Initialize Select2 with the fetched data
