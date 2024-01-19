@@ -92,7 +92,7 @@ var KTAppCalendar = function() {
                                     start: startDateTime.toISOString().replace(".000Z", ""),
                                     end: endDateTime.toISOString().replace(".000Z", ""),
                                     location: mapLocation(info.coSo) + ' - ' + info.phong + ' - ' + lich.group,
-                                    description: lich.giangVien,
+                                    description: lich.giangVien + '\nEmail: ' + lich.email + '\nPhone: ' + lich.phone,
                                     allDay: false
                                 };
                                 console.log(calendarEvent);
