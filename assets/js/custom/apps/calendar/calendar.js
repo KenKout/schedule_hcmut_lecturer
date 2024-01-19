@@ -173,20 +173,55 @@ var KTAppCalendar = function() {
                                     */
                                     for (let i = 0; i < data.length; i++) {
                                         const course = data[i];
+                                        const added_class_lt = [];
                                         for (let j = 0; j < course.lichHoc.length; j++) {
                                             const lich = course.lichHoc[j];
-                                            for (let k = 0; k < lich.classInfo.length; k++) {
-                                                const info = lich.classInfo[k];
-                                                for (let l = 0; l < info.week.length; l++) {
-                                                    const week = info.week[l];
-                                                    // Create the event object
-                                                    var calendarEvent = createCalendarEvent(course, info, week, info.dayOfWeek, lich, n.value);
-                                                    // Add the event to the calendar
-                                                    if (calendarEvent != null){
-                                                        e.addEvent(calendarEvent);
+                                            if(lich.group.includes("_")){
+                                                if(added_class_lt.includes(lich.nhomLT) == false){
+                                                    added_class_lt.push(lich.nhomLT);
+                                                    for (let k = 0; k < lich.classInfo.length; k++) {
+                                                        const info = lich.classInfo[k];
+                                                        for (let l = 0; l < info.week.length; l++) {
+                                                            const week = info.week[l];
+                                                            // Create the event object
+                                                            var calendarEvent = createCalendarEvent(course, info, week, info.dayOfWeek, lich, n.value);
+                                                            // Add the event to the calendar
+                                                            if (calendarEvent != null){
+                                                                e.addEvent(calendarEvent);
+                                                            }
+                                                        }
+                                                    }
+                                                }else{
+                                                    for (let k = 0; k < lich.classInfo.length; k++) {
+                                                        const info = lich.classInfo[k];
+                                                        if(info.week.length < 10){
+                                                            for (let l = 0; l < info.week.length; l++) {
+                                                                const week = info.week[l];
+                                                                // Create the event object
+                                                                var calendarEvent = createCalendarEvent(course, info, week, info.dayOfWeek, lich, n.value);
+                                                                // Add the event to the calendar
+                                                                if (calendarEvent != null) {
+                                                                    e.addEvent(calendarEvent);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }else {
+                                                for (let k = 0; k < lich.classInfo.length; k++) {
+                                                    const info = lich.classInfo[k];
+                                                    for (let l = 0; l < info.week.length; l++) {
+                                                        const week = info.week[l];
+                                                        // Create the event object
+                                                        var calendarEvent = createCalendarEvent(course, info, week, info.dayOfWeek, lich, n.value);
+                                                        // Add the event to the calendar
+                                                        if (calendarEvent != null){
+                                                            e.addEvent(calendarEvent);
+                                                        }
                                                     }
                                                 }
                                             }
+
                                         }
                                     }
 
