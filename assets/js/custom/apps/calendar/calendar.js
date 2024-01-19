@@ -113,11 +113,12 @@ var KTAppCalendar = function() {
                                                         // Create the event object
                                                         var calendarEvent = createCalendarEvent(course, info, week, info.dayOfWeek, lich);
                                                         // Add the event to the calendar
-                                                        e.addEvent(calendarEvent), e.render(), f.reset(); // Make sure this matches the method of your calendar library
+                                                        e.addEvent(calendarEvent) // Make sure this matches the method of your calendar library
                                                     });
                                                 });
                                             });
                                         });
+                                        e.render(), f.reset();
                                         u.hide(), D.disabled = !1;
                                         D.removeAttribute("data-kt-indicator");
                                     },
