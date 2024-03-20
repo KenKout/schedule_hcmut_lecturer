@@ -89,7 +89,7 @@ var KTAppCalendar = function() {
                                 // Create the event object
 
                                 if (lich.group.includes("_")) {
-                                    if (info.week.length < 10 && gv == lich.giangVienBT && gv != '') {
+                                    if (info.week.length < 10 && gv.toLowerCase() == lich.giangVienBT.toLowerCase() && gv != '') {
                                         const calendarEvent = {
                                             title: course.tenMonHoc + ' - ' + lich.giangVienBT + ' (Exercise)',
                                             start: startDateTime.toISOString().replace(".000Z", ""),
@@ -100,7 +100,7 @@ var KTAppCalendar = function() {
                                         };
                                         console.log(calendarEvent,'Exercise');
                                         return calendarEvent;
-                                    }if (info.week.length > 10 & gv == lich.giangVien && gv != '') {
+                                    }if (info.week.length > 10 & gv.toLowerCase() == lich.giangVien.toLowerCase() && gv != '') {
                                         const calendarEvent = {
                                             title: course.tenMonHoc + ' - ' + lich.giangVien,
                                             start: startDateTime.toISOString().replace(".000Z", ""),
