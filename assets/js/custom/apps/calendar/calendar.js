@@ -41,7 +41,7 @@ var KTAppCalendar = function() {
 
                             // Helper function to calculate the date from the week number and day of the week
                             function getDateFromWeek(weekNumber, dayOfWeek) {
-                                const startDate = new Date('2024-08-25'); // Week 1 start date (Sunday)
+                                const startDate = new Date('2024-01-07'); // Week 1 start date (Sunday)
                                 const date = new Date(startDate);
                                 date.setDate(startDate.getDate() + (weekNumber - 1) * 7 + dayOfWeek);
                                 return date;
@@ -89,6 +89,7 @@ var KTAppCalendar = function() {
                                 // Create the event object
 
                                 if (lich.group.includes("_")) {
+                                    console.log(lich);
                                     if (info.week.length < 10 && gv.toLowerCase() == lich.giangVienBT.toLowerCase() && gv != '') {
                                         const calendarEvent = {
                                             title: course.tenMonHoc + ' - ' + lich.giangVienBT + ' (Exercise)',
@@ -439,51 +440,13 @@ var KTAppCalendar = function() {
                     })
                 }))
             })), k.addEventListener("click", (function(e) {
-                e.preventDefault(), Swal.fire({
-                    text: "Are you sure you would like to cancel?",
-                    icon: "warning",
-                    showCancelButton: !0,
-                    buttonsStyling: !1,
-                    confirmButtonText: "Yes, cancel it!",
-                    cancelButtonText: "No, return",
-                    customClass: {
-                        confirmButton: "btn btn-primary",
-                        cancelButton: "btn btn-active-light"
-                    }
-                }).then((function(e) {
-                    e.value ? (f.reset(), u.hide()) : "cancel" === e.dismiss && Swal.fire({
-                        text: "Your form has not been cancelled!.",
-                        icon: "error",
-                        buttonsStyling: !1,
-                        confirmButtonText: "Ok, got it!",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    })
-                }))
+                e.preventDefault();
+                f.reset();
+                u.hide();
             })), _.addEventListener("click", (function(e) {
-                e.preventDefault(), Swal.fire({
-                    text: "Are you sure you would like to cancel?",
-                    icon: "warning",
-                    showCancelButton: !0,
-                    buttonsStyling: !1,
-                    confirmButtonText: "Yes, cancel it!",
-                    cancelButtonText: "No, return",
-                    customClass: {
-                        confirmButton: "btn btn-primary",
-                        cancelButton: "btn btn-active-light"
-                    }
-                }).then((function(e) {
-                    e.value ? (f.reset(), u.hide()) : "cancel" === e.dismiss && Swal.fire({
-                        text: "Your form has not been cancelled!.",
-                        icon: "error",
-                        buttonsStyling: !1,
-                        confirmButtonText: "Ok, got it!",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    })
-                }))
+                e.preventDefault();
+                f.reset();
+                u.hide();
             })), (e => {
                 e.addEventListener("hidden.bs.modal", (e => {
                     p && p.resetForm(!0)
