@@ -41,7 +41,7 @@ var KTAppCalendar = function() {
 
                             // Helper function to calculate the date from the week number and day of the week
                             function getDateFromWeek(weekNumber, dayOfWeek) {
-                                const startDate = new Date('2024-01-07'); // Week 1 start date (Sunday)
+                                const startDate = new Date('2024-08-25'); // Week 1 start date (Sunday)
                                 const date = new Date(startDate);
                                 date.setDate(startDate.getDate() + (weekNumber - 1) * 7 + dayOfWeek);
                                 return date;
